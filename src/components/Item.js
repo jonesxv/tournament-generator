@@ -3,8 +3,9 @@ import { ListGroupItem } from 'reactstrap';
 
 class Item extends React.Component {
 	render() {
+		const name = this.props.data
 		return (
-				<ListGroupItem>{this.props.name}</ListGroupItem>
+				<ListGroupItem>{name}</ListGroupItem>
 		)
 	}
 }

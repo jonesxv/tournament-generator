@@ -5,7 +5,6 @@ import Bracket from './Bracket'
 import Pools from './Pools'
 import PoolSchedule from './PoolSchedule'
 import { Container, Col, Row } from 'reactstrap'
-import SortableComponents from './SortableComponents'
 import ItemData from './ItemData'
 
 
@@ -16,22 +15,26 @@ class App extends React.Component {
 		items: {},
 		pools: {
 			amount: 0,
-			PoolA: {
-				1: "Ryan",
-				2: "Brian"
+			field: {}
 			}
-		}
+		
 	}
 
 	addItem = item => {
 		const items = {...this.state.items}
-		console.log(item)
 
-		items[`item${Date.now()}`] = item
+		items[item] = {
+			ranks: {
+				poolrank: 0,
+				overall: 0
+			},
+			games: {
+				pool: {},
+				bracket: {}
+			}
+		}
 
-		this.setState({
-			items: items
-		})
+		this.setState({ items })
 
 	}
 
@@ -40,11 +43,43 @@ class App extends React.Component {
 		console.log(pools)
 		pools.amount = x
 		this.setState({ pools })
-		console.log(pools.amount)
 	}
 
 	loadItemList = () => {
-		this.setState({ items: ItemData})
+		const items = {}
+		ItemData.map(item => {
+			items[item.name] = {}
+			console.log(item.name)
+		})
+		this.setState({ items })
+	}
+
+	createPools = (num) => {
+		const pools = {}
+		const items = {...this.state.items}
+		pools.amount = num
+		pools.field = {}
+		for (let i=0; i<num; i++) {
+			let newItems = {}
+			pools.field[`Pool${String.fromCharCode(65+i)}`] = {}
+		
+			let itemKeys = Object.keys(this.state.items).filter((_, index, Arr) => (index +i) % num == 0)
+			itemKeys.map(key => (
+				newItems[key] = this.state.items[key]
+			))
+			pools.field[`Pool${String.fromCharCode(65+i)}`].items = newItems
+			
+			
+			
+			//pools.field[`Pool${String.fromCharCode(65+i)}`].items = newItems
+			
+		}
+		//const newItems = Object.keys(this.state.items).filter((_, index, Arr) => index % 2 == 0)
+		//const newItems2 = Object.keys(this.state.items).filter((_, index, Arr) => (index + 1) % 2 == 0)
+		//console.log(newItems.map(key => this.state.items[key].name))
+		//console.log(newItems2.map(key => this.state.items[key].name))
+
+		this.setState({ pools })
 	}
 
 	render() {
@@ -64,13 +99,16 @@ class App extends React.Component {
 					<Col xl="9">
 						<Pools 
 							pools={this.state.pools}
+							field={this.state.pools.field}
 							title="Pools"
 							updateNumberPools={this.updateNumberPools}
+							createPools={this.createPools}
 							/>
-					</Col>
-					<Col xl="6">
 						<PoolSchedule title="Pool Schedule" />
 						<Bracket title="Bracket" />
+					</Col>
+					<Col xl="6">
+
 					</Col>
 				</Row>
 			</Container>

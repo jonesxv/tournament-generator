@@ -1,46 +1,33 @@
 import React from 'react'
 import Item from './Item'
-import ItemData from './ItemData'
 import { Button, ListGroup, ListGroupItem } from 'reactstrap';
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 
 class TourneyList extends React.Component {
-
-	state = {
-		items: ['Player 1'],
-		test: [],
-	}
 
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			items: ['']
+			items: [''],
+			file: null
 		}
 
 		this.addItem = this.addItem.bind(this)
-		this.onSortEnd = this.onSortEnd.bind(this)
+		this.onChange = this.onChange.bind(this)
 	}
 
 	addItem(event) {
 		event.preventDefault()
 
-		console.log(this.inputItem.value)
-
-		const newItem = {
-			name: this.inputItem.value
-		}
+		const newItem = this.inputItem.value
 		this.props.addItem(newItem)
 		event.currentTarget.reset()
 	}
 
-	onSortEnd = ({oldIndex, newIndex}) => {
-		this.setState({
-			items: arrayMove(this.state.items, oldIndex, newIndex)
-		})
-	}
-
+	onChange(e) {
+    	this.setState({file:e.target.files[0]})
+  	}
 
 	render() {
 		return (			
@@ -49,7 +36,7 @@ class TourneyList extends React.Component {
 				{Object.keys(this.props.items).map(key => (
               		<Item
               			key={key}
-              			name={this.props.items[key].name}
+              			data={key}
               			/>
               		))}
 				<ListGroupItem>
@@ -60,8 +47,10 @@ class TourneyList extends React.Component {
 							required 
 							placeholder="add Item" />
 					</form>
-					<Button onClick={this.props.loadItemList}>Add Items</Button>
 				</ListGroupItem>
+
+				<Button onClick={this.props.loadItemList}>Load Sample List</Button>
+				<input type="file" onChange={this.onChange} />
 			</ListGroup>
 
 		)	

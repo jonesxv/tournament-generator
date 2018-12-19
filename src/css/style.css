@@ -119,6 +119,10 @@ td {
   width: 50px;
 }
 
+.pool-num-form input {
+  width: 50px;
+}
+
 
 body {
   background: var(--bg-color); /* fallback for old browsers */
