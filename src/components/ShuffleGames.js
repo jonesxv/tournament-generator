@@ -35,7 +35,7 @@ class ShuffleGames extends React.Component {
       <div>
 				<h2>{this.props.title}</h2>
 				<form className="pool-num-form" onSubmit={this.updatePoolNum}>
-					Enter Number of Pools
+					Number of Rounds
 
 					<input 
 						type="text"

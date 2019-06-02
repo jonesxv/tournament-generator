@@ -7,16 +7,35 @@ import PoolSchedule from './PoolSchedule'
 import { Container, Col, Row } from 'reactstrap'
 import ItemData from './ItemData'
 import ShuffleGames from './ShuffleGames';
+import { arrayMove } from 'react-sortable-hoc';
 
 class Shuffle extends React.Component {
   state = {
 		players: {},
 		teams: {},
 		items: {},
-		pools: {
-			amount: 0,
-			field: {}
-			}
+    games: 
+    {
+      round1: [
+        {
+          winners: [],
+          losers: [],
+          pointdiff: 0,
+          players1: [
+            "player1",
+            "player2",
+            "player3",
+            "player4"
+          ],
+          players2: [
+            "player1",
+            "player2",
+            "player3",
+            "player4"
+          ]
+        }
+      ]
+    }
 		
 	}
 
@@ -54,44 +73,34 @@ class Shuffle extends React.Component {
 		this.setState({ items })
 	}
 
-	// createPools = (num) => {
-	// 	const pools = {}
-	// 	const items = {...this.state.items}
-	// 	pools.amount = num
-	// 	pools.field = {}
-	// 	for (let i=0; i<num; i++) {
-	// 		let newItems = {}
-	// 		pools.field[`Pool${String.fromCharCode(65+i)}`] = {}
-		
-	// 		let itemKeys = Object.keys(this.state.items).filter((_, index, Arr) => (index +i) % num == 0)
-	// 		itemKeys.map(key => (
-	// 			newItems[key] = this.state.items[key]
-	// 		))
-	// 		pools.field[`Pool${String.fromCharCode(65+i)}`].items = newItems
-			
-			
-			
-	// 		//pools.field[`Pool${String.fromCharCode(65+i)}`].items = newItems
-			
-	// 	}
-	// 	//const newItems = Object.keys(this.state.items).filter((_, index, Arr) => index % 2 == 0)
-	// 	//const newItems2 = Object.keys(this.state.items).filter((_, index, Arr) => (index + 1) % 2 == 0)
-	// 	//console.log(newItems.map(key => this.state.items[key].name))
-	// 	//console.log(newItems2.map(key => this.state.items[key].name))
-
-	// 	this.setState({ pools })
-  // }
-  
   createShuffleGames = (rounds) => {
     const items = {...this.state.items}
     const playerCount = Object.keys(items).length
     const subs = 8 - (playerCount % 8);
+    const games = {};
     console.log('subs: ', subs);
     for (let i = 0; i < subs; i++) {
       items[`sub${i + 1}`] = {}
     }
     console.log(items)
-    this.setState({ items })
+    let playerKeys = Object.keys(items);
+    function createGames(num) {
+      
+      while (playerKeys.length > 4) {
+        for (let i = 0; i < 4; i++) {
+          var randomItem = myArray[Math.floor(Math.random()*myArray.length)]
+          playerKeys.pop();
+        }
+        console.log(playerKeys);
+      }
+      
+    }
+    for (let i = 0; i < rounds; i ++) {
+      games[`round${i + 1}`] = [];
+      createGames(i);
+    }
+
+    this.setState({ items, games })
   }
   
   render() {

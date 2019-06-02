@@ -9,6 +9,68 @@ export function rando(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+export function createGames(arr) {
+  let tmpArr = arr;
+  let games = [];
+  // games = [
+  //   {
+  //     winners: [],
+  //     losers: [],
+  //     pointdiff: 0,
+  //     players1: [
+  //       "player1",
+  //       "player2",
+  //       "player3",
+  //       "player4"
+  //     ],
+  //     players2: [
+  //       "player1",
+  //       "player2",
+  //       "player3",
+  //       "player4"
+  //     ]
+  //   },
+  //   {
+  //     winners: [],
+  //     losers: [],
+  //     pointdiff: 0,
+  //     players1: [
+  //       "player1",
+  //       "player2",
+  //       "player3",
+  //       "player4"
+  //     ],
+  //     players2: [
+  //       "player1",
+  //       "player2",
+  //       "player3",
+  //       "player4"
+  //     ]
+  //   }
+  // ]
+
+  const playersLeftover = 0;
+  while (tmpArr.length > playersLeftover) {
+    const tmpGame = {
+      winners: [],
+      losers: [],
+      pointdiff: 0,
+      team1: [],
+      team2: []
+    };
+    // team 1
+    for (let i = 0; i < 4; i++) {
+      console.log(Math.floor(Math.random() * tmpArr.length))
+    }
+    // team 2
+    for (let i = 0; i < 4; i++) {
+      console.log(Math.floor(Math.random() * tmpArr.length))
+    }
+    games.push(tmpGame);
+  }
+  return games;
+}
+
 export function slugify(text) {
   return text
     .toString()
