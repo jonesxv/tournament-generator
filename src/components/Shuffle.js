@@ -8,6 +8,7 @@ import { Container, Col, Row } from 'reactstrap'
 import ItemData from './ItemData'
 import ShuffleGames from './ShuffleGames';
 import { arrayMove } from 'react-sortable-hoc';
+import { createGames } from '../helpers';
 
 class Shuffle extends React.Component {
   state = {
@@ -21,13 +22,13 @@ class Shuffle extends React.Component {
           winners: [],
           losers: [],
           pointdiff: 0,
-          players1: [
+          team1: [
             "player1",
             "player2",
             "player3",
             "player4"
           ],
-          players2: [
+          team2: [
             "player1",
             "player2",
             "player3",
@@ -77,31 +78,18 @@ class Shuffle extends React.Component {
     const items = {...this.state.items}
     const playerCount = Object.keys(items).length
     const subs = 8 - (playerCount % 8);
-    const games = {};
+    let games = {};
     console.log('subs: ', subs);
     for (let i = 0; i < subs; i++) {
       items[`sub${i + 1}`] = {}
     }
-    console.log(items)
-    let playerKeys = Object.keys(items);
-    function createGames(num) {
-      
-      while (playerKeys.length > 4) {
-        for (let i = 0; i < 4; i++) {
-          var randomItem = myArray[Math.floor(Math.random()*myArray.length)]
-          playerKeys.pop();
-        }
-        console.log(playerKeys);
-      }
-      
-    }
-    for (let i = 0; i < rounds; i ++) {
-      games[`round${i + 1}`] = [];
-      createGames(i);
-    }
+    games = createGames(items, rounds);
 
+    console.log(games);
     this.setState({ items, games })
   }
+
+  
   
   render() {
     return (
@@ -119,6 +107,7 @@ class Shuffle extends React.Component {
             <ShuffleGames
               title="Shuffle Games"
               field={this.state.players}
+              games={this.state.games}
               createShuffleGames={this.createShuffleGames}
               />
 						{/* <Pools 
