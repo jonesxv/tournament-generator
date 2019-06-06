@@ -55,7 +55,7 @@ class Pools extends React.Component {
 				items={Object.keys(this.props.field[key].items)}
 			/>
 		))
-		console.log("pool IDs: " + poolComponents)
+		console.log("test pool IDs: " + poolComponents)
 
 
 		

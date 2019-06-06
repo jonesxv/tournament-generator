@@ -33,6 +33,7 @@ class Round extends React.Component {
   render() {
     const gameComponents = Object.keys(this.props.games).map(key => {
       <Game
+        title={key}
         key={key}
         team1={this.props.games.team1}
         team2={this.props.games.team2}
@@ -54,10 +55,20 @@ class ShuffleGames extends React.Component {
 			<Round
 				key={key}
 				title={key}
-				games={this.props.games[key]}
+				games={Object.keys(this.props.games[key])}
       />
     })
-    console.log('round id ' + roundComponents);
+
+    // const poolComponents = Object.keys(this.props.games).map(key => (
+		// 	<Round
+		// 		key={key}
+		// 		title={key}
+		// 		items={Object.keys(this.props.games[key])}
+		// 	/>
+    // ))
+    
+    // console.log('test' + poolComponents)
+    console.log(roundComponents)
 		return (
       <div>
 				<h2>{this.props.title}</h2>
@@ -70,7 +81,8 @@ class ShuffleGames extends React.Component {
 					/>
 					<Button onClick={() => this.props.createShuffleGames(this.numberOfRounds.value)}>Submit</Button>
 				</form>
-				{ roundComponents }
+        { roundComponents }
+
 			</div>
 		)
 	}
