@@ -18,7 +18,7 @@
     "react-sortable-hoc": "^0.8.4",
     "react-transition-group": "^2.2.1",
     "reactstrap": "6.0.1",
-    "serve": "^6.5.8",
+    "serve": "^10.1.2",
     "stylus": "0.54.5"
   },
   "scripts": {
